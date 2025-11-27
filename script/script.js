@@ -3,7 +3,44 @@
 document.addEventListener("DOMContentLoaded", function(e){
   header_menu_toggle();
   slide_menu_toggle();
+  map_tab();
+  hide_apply();
+  scroll_move();
 })
+
+const scroll_move = () => {
+  $(".scroll_move").click(function(e){  
+    e.preventDefault();       
+    $('html,body').animate({scrollTop:$(this.hash).offset().top}, 1000);
+  });
+}
+
+const hide_apply = () => {
+  $(window).on('scroll', function () {
+    const scrollTop = $(this).scrollTop();
+    const windowHeight = $(this).height();
+    const documentHeight = $(document).height();
+
+    // 스크롤이 바닥 근처에 닿으면 hide 추가
+    if (scrollTop + windowHeight >= documentHeight - 50) {
+        $('.bottom-apply').addClass('hide');
+    } else {
+        $('.bottom-apply').removeClass('hide');
+    }
+  });
+}
+
+const map_tab = () => {
+  $('.main .map-section .item .btn-wrap .item').click(function(){
+    const index = $(this).index();
+    $('.main .map-section .item-list > li').removeClass('show');
+    $('.main .map-section .item-list > li').eq(index).addClass('show');
+
+    $('.main .map-section .item-list > li').hide();
+    $('.main .map-section .item-list > li').css("position","relative");
+    $('.main .map-section .item-list > li').eq(index).show();
+  })
+}
 
 const slide_menu_toggle = () => {
   $('.slide-section .item').click(function(){
